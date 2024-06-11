@@ -14,7 +14,7 @@ Just execute the following script, and depending on your hardware you should exp
 ./setup.sh
 ```
 
-### Git
+# Git
 ```
 git init
 git add .
@@ -23,7 +23,7 @@ git remote add origin https://github.com/namtranvn/kubernetes-vagrant-ubuntu.git
 git push --set-upstream origin master
 ```
 
-### docker build
+# Docker Build
 ```
 docker build --no-cache -t flask-controller:v1 .
 docker login
