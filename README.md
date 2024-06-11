@@ -15,23 +15,27 @@ Just execute the following script, and depending on your hardware you should exp
 ```
 
 ### Git
+```
 git init
 git add .
 git commit -m "first commit"
 git remote add origin https://github.com/namtranvn/kubernetes-vagrant-ubuntu.git
 git push --set-upstream origin master
-
+```
 
 ### docker build
+```
 docker build --no-cache -t flask-controller:v1 .
 docker login
 docker tag flask-controller:v1 hoainamtran204/flask-controller:v1
 docker push hoainamtran204/flask-controller:v1
-
 docker run -td flask-controller:v1
 docker exec -it containerid bash
+```
 
 # Local
+```
 curl -I namct.local.test
 kubectl run test-nginx-svc --image=nginx
 kubectl exec -it test-nginx-svc -- bash
+```
