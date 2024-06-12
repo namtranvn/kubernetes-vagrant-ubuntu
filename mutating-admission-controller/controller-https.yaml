@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: controller-service
+spec:
+  selector:
+    app: flask-controller2
+  ports:
+    - protocol: TCP
+      port: 443
+      targetPort: 443
+---
+### Create Deployment
+apiVersion: v1
+kind: Pod
+metadata:
+  name: flask-controller2
+  labels:
+    app: flask-controller2
+spec:
+  containers:
+  - name: flask-controller2
+    image: hoainamtran204/flask-controller2:v1
+    imagePullPolicy: Always
+    ports:
+    - containerPort: 443

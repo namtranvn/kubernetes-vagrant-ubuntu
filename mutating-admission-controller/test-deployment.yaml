@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx
+    webhook-enabled: "true"
+  name: nginx-deployment-test
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+      webhook-enabled: "true"
+  template:
+    metadata:
+      labels:
+        app: nginx
+        webhook-enabled: "true"
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1
+        ports:
+        - name: http
+          containerPort: 80

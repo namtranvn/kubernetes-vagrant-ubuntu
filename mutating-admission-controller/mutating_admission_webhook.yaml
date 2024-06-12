@@ -1,0 +1,32 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: mutating-webhook
+  labels:
+    component: mutating-controller
+webhooks:
+- admissionReviewVersions:
+  - v1
+  name: test.example.com
+  failurePolicy: Fail
+  objectSelector:
+      matchLabels:
+        webhook-enabled: "true"
+  clientConfig:
+    # url: "https://10.0.2.15:443/mutate/deployments"
+    service:
+      name: controller-service
+      # port: 443
+      namespace: default
+      path: /mutate/deployments
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUN1VENDQWFHZ0F3SUJBZ0lVZG9xN1A2aC9CM3hOTk5ESzlUclJ1S2xOT0Vjd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0VqRVFNQTRHQTFVRUF4TUhkR3h6TFc1aGJUQWdGdzB5TkRBMk1USXhNalUzTURCYUdBOHlNVEkwTURVeApPVEV5TlRjd01Gb3dFakVRTUE0R0ExVUVBeE1IZEd4ekxXNWhiVEJaTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5CkF3RUhBMElBQkpWMDJvb3ZVa0x3cGZjaU0wczkxVzNXMzhZa2VabElKYzNic3NkaGVOTjRicnNmVjYxbVIwUGQKbEdoZEVidzArUkQ3aEt5K1JlRExOZzYzdkRTRVI4V2pnYzh3Z2N3d0RnWURWUjBQQVFIL0JBUURBZ1dnTUJNRwpBMVVkSlFRTU1Bb0dDQ3NHQVFVRkJ3TUJNQXdHQTFVZEV3RUIvd1FDTUFBd0hRWURWUjBPQkJZRUZBNnJhQm9sCjdIZ1gyKzFHcEtmMFUzbW5OU3F1TUhnR0ExVWRFUVJ4TUcrQ0QyNWhiV04wTG14dlkyRnNMbU52YllJZVkyOXUKZEhKdmJHeGxjaTF6WlhKMmFXTmxMbVJsWm1GMWJIUXVjM1pqZ2gxbWJHRnpheTFoY0drdGMyVnlkbWxqWlM1awpaV1poZFd4MExuTjJZNElkWm14aGMyc3RZMjl1ZEhKdmJHeGxjakl1WkdWbVlYVnNkQzV3YjJRd0RRWUpLb1pJCmh2Y05BUUVMQlFBRGdnRUJBSnpadyswUnFmZHc1SjBHeWVYREN1aWJHSmZJVkN6Qjl4RG9MUm1tOU1Pa3dvUkQKMm9IV2xzK2JIVHdXdHVhcXI2cVpOQXZNVS9Ib2JiKzJkWFBJemRvQ3RTSlRPVXVmcUJMNXlyblZwT0xNRUxlZwpybXdCK3VBcW0yQ0Z4Rm5raTlDQzM0NmFQY2JwV1ZlbVd2d2RscGlWaFpPK1p2bG1TMVBaa0JweC8zck9UTy91CnV5Qk0zUHd2dTYzOGI0SmhOZnpSR3dTMGdQbTZVc2tOWWhrTWFTVzdrZThLU01LclZjNnpwMitZdXA5cWZieGcKWVNQWW9jS0dkZHR5VzEzcFdyaDA4cmNhTjdYcUpYS0YzNFFCbGt6R2pkTU5kbkZrb3Ywbm1iODRkV0FXK2FiYwpmKy9LQUpBd2JyTkxOeTBzWFpYVU50T0gvZ2NlMzdXV2NmaGw0N1U9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+  rules:
+    - apiGroups: ["apps"]
+      resources:
+        - "deployments"
+      apiVersions:
+        - "*"
+      operations:
+        - CREATE
+  sideEffects: None
+  timeoutSeconds: 30
